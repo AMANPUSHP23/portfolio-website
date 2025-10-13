@@ -1,0 +1,36 @@
+/* Premium testimonial section animations */
+
+@keyframes avatar-glow {
+  0%, 100% { box-shadow: 0 0 0 0 #00eaff99, 0 0 0 4px #ffd70066; }
+  50% { box-shadow: 0 0 32px 8px #00eaffcc, 0 0 24px 8px #ffd700bb; }
+}
+.animate-avatar-glow {
+  animation: avatar-glow 2.2s infinite alternate cubic-bezier(.4,0,.2,1);
+}
+
+@keyframes avatar-shine {
+  0% { opacity: 0.4; }
+  50% { opacity: 0.85; }
+  100% { opacity: 0.4; }
+}
+.animate-avatar-shine {
+  animation: avatar-shine 2.2s infinite linear;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, #00eaff44 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.5s infinite linear;
+}
+
+@keyframes float-glow {
+  0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 12px #00eaff99); }
+  50% { transform: translateY(-8px) scale(1.08); filter: drop-shadow(0 0 32px #ffd700cc); }
+}
+.animate-float-glow {
+  animation: float-glow 2.2s infinite cubic-bezier(.4,0,.2,1);
+}

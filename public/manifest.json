@@ -1,0 +1,22 @@
+
+{
+  "short_name": "Aman Pushp",
+  "name": "Aman Pushp - Portfolio",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#6366f1",
+  "background_color": "#f8fafc",
+  "description": "Aman Pushp's portfolio PWA. Full Stack Developer specializing in React, Node.js, and modern web technologies."
+}

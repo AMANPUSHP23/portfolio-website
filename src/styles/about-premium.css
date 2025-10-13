@@ -1,0 +1,55 @@
+/* Premium About Section Styles */
+
+.about-glass {
+  background: linear-gradient(135deg, rgba(14,22,48,0.95) 70%, rgba(56,189,248,0.09) 100%);
+  box-shadow: 0 8px 48px 0 #1a237e55, 0 2px 8px 0 #a21caf33, 0 1px 32px 0 #f472b655 inset;
+  border-radius: 1.5rem;
+  border: 2px solid rgba(56,189,248,0.13);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  position: relative;
+}
+
+.about-glass .about-reflection {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 28%;
+  border-radius: 1.5rem 1.5rem 0 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.17) 0%, transparent 100%);
+  opacity: 0.19;
+  z-index: 2;
+}
+
+.about-avatar {
+  box-shadow: 0 0 0 4px #38bdf8bb, 0 0 32px 0 #a21caf66;
+  border: 3px solid #a21caf;
+  background: linear-gradient(135deg, #38bdf8 60%, #a21caf22 100%);
+  position: relative;
+}
+
+.about-avatar-glow {
+  animation: about-avatar-glow 2.4s infinite alternate cubic-bezier(.4,0,.2,1);
+}
+@keyframes about-avatar-glow {
+  0%, 100% { box-shadow: 0 0 0 0 #38bdf899, 0 0 0 4px #a21caf33; }
+  50% { box-shadow: 0 0 32px 8px #38bdf8cc, 0 0 24px 8px #a21cafbb; }
+}
+
+.about-badge {
+  position: absolute;
+  left: 50%;
+  bottom: -1.5rem;
+  transform: translateX(-50%);
+  padding: 0.45rem 1.2rem;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #38bdf8, #a21caf, #f472b6, #facc15);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 18px 0 #38bdf888;
+  z-index: 10;
+  border: 2px solid #fff3;
+  opacity: 0.95;
+  user-select: none;
+}
