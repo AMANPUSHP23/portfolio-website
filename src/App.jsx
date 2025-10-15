@@ -26,7 +26,7 @@ function App() {
   return (
     <HelmetProvider>
       <ThemeProvider>
-        <Router>
+        <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <div className="flex flex-col min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-primary">
             <Navbar />
             <SocialIcons links={siteConfig.socialLinks} />
