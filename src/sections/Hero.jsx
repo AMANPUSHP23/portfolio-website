@@ -55,7 +55,7 @@ const Hero = () => {
 
 
   return (
-    <SectionWrapper id="hero" className="pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-12 min-h-[70vh] sm:min-h-[75vh] md:min-h-[80vh] flex flex-col items-center justify-center text-center relative overflow-hidden" aria-label="Hero section">
+    <SectionWrapper id="hero" className="pt-20 sm:pt-28 md:pt-32 pb-6 sm:pb-12 min-h-[100vh] sm:min-h-[75vh] md:min-h-[80vh] flex flex-col items-center justify-center text-center relative overflow-hidden" aria-label="Hero section">
       {/* Particle Animation Layer */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <HeroParticles />
