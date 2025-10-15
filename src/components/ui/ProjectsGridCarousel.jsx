@@ -116,7 +116,7 @@ const ProjectsGridCarousel = ({ projects = [], renderCard, cardsPerSlide = 3 }) 
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -40 }}
           transition={{ duration: 0.5 }}
-          className={`grid gap-8 md:grid-cols-2 lg:grid-cols-3`}
+          className={`grid gap-5 md:grid-cols-2 lg:grid-cols-3`}
         >
           {visible.map((project, idx) => renderCard(project, start + idx))}
         </motion.div>

@@ -136,7 +136,7 @@ const TestimonialsGridCarousel = ({ testimonials = [], renderCard, cardsPerSlide
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -40 }}
           transition={{ duration: 0.5 }}
-          className={`grid gap-10 md:grid-cols-2 lg:grid-cols-3`}
+          className={`grid gap-6 md:grid-cols-2 lg:grid-cols-3`}
         >
           {visible.map((testimonial, idx) => renderCard(testimonial, start + idx))}
         </motion.div>

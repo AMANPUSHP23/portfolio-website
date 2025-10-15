@@ -44,8 +44,8 @@ const SocialIcons = ({ links, direction = 'vertical', className = '' }) => {
 
   const baseClasses = "fixed z-40 flex";
   const directionClasses = direction === 'vertical' 
-    ? "flex-col space-y-4 left-5 top-1/2 transform -translate-y-1/2 hidden md:flex" // Only show on md and up for vertical
-    : "flex-row space-x-4 bottom-5 left-1/2 transform -translate-x-1/2 md:hidden"; // Only show on sm (mobile) for horizontal
+    ? "flex-col space-y-4 left-4 top-1/2 transform -translate-y-1/2 hidden xl:flex" // Only show on xl screens (1280px+) for vertical
+    : "flex-row space-x-4 bottom-5 left-1/2 transform -translate-x-1/2 xl:hidden"; // Only show below xl for horizontal
   
   return (
     <motion.div

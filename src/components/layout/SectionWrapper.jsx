@@ -11,7 +11,7 @@ const SectionWrapper = ({ children, id, className = '',bgColor = 'bg-transparent
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.7, ease: 'easeOut' }}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:pl-20">
         {children}
       </div>
     </motion.section>

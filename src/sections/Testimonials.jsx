@@ -73,22 +73,22 @@ const Testimonials = () => {
         renderCard={(testimonial, idx) => (
           <motion.div key={testimonial.id} variants={cardVariants} className="flex h-full">
             <Card3D>
-              <div className="flex flex-col text-center h-full relative group rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary/10 via-background/70 to-secondary/10 dark:from-primary/20 dark:via-background/80 dark:to-secondary/20 border border-primary/20 backdrop-blur-lg px-5 py-6 md:px-7 md:py-8">
+              <div className="flex flex-col text-center h-full relative group rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary/10 via-background/70 to-secondary/10 dark:from-primary/20 dark:via-background/80 dark:to-secondary/20 border border-primary/20 backdrop-blur-lg px-4 py-5 md:px-5 md:py-6">
                 <div className="absolute inset-0 pointer-events-none z-0 bg-gradient-to-br from-primary/20 via-purple-600/10 to-pink-600/10 opacity-80 blur-2xl rounded-2xl" />
-                <div className="relative z-10 flex flex-col items-center pt-6 pb-1">
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden mb-2 border-2 border-primary shadow-[0_0_0_3px_rgba(168,85,247,0.14)] bg-gradient-to-br from-primary/30 via-purple-600/20 to-pink-600/20">
+                <div className="relative z-10 flex flex-col items-center pt-3 pb-1">
+                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden mb-2 border-2 border-primary shadow-[0_0_0_3px_rgba(168,85,247,0.14)] bg-gradient-to-br from-primary/30 via-purple-600/20 to-pink-600/20">
                     <img
                       className="w-full h-full object-cover"
                       alt={`Portrait of ${testimonial.name}, ${testimonial.title}`}
                       src={testimonial.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&background=23263a&color=fff&size=128`}
                     />
                   </div>
-                  <h3 className="text-lg md:text-xl font-bold mb-1 tracking-tight bg-gradient-to-r from-primary via-purple-600 to-pink-600 bg-clip-text text-transparent">{testimonial.name}</h3>
-                  <p className="text-sm md:text-base text-muted-foreground mb-1 font-semibold">{testimonial.title}</p>
+                  <h3 className="text-base md:text-lg font-bold mb-1 tracking-tight bg-gradient-to-r from-primary via-purple-600 to-pink-600 bg-clip-text text-transparent">{testimonial.name}</h3>
+                  <p className="text-xs md:text-sm text-muted-foreground mb-1 font-semibold">{testimonial.title}</p>
                 </div>
-                <div className="flex-grow flex flex-col justify-center items-center px-4 pb-5">
+                <div className="flex-grow flex flex-col justify-center items-center px-2 pb-3">
                   {/* Quote icon intentionally omitted for compactness, add if needed */}
-                  <p className="text-base md:text-lg text-foreground/90 italic leading-relaxed font-medium">"{testimonial.quote}"</p>
+                  <p className="text-sm md:text-base text-foreground/90 italic leading-relaxed font-medium line-clamp-5">"{testimonial.quote}"</p>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-primary via-purple-600 to-pink-600 blur-[2px] opacity-80 animate-shimmer" />
               </div>
