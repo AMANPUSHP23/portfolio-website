@@ -5,7 +5,7 @@ const SectionWrapper = ({ children, id, className = '',bgColor = 'bg-transparent
   return (
     <motion.section
       id={id}
-      className={`py-16 md:py-24 ${bgColor} ${className}`}
+      className={`py-12 sm:py-16 md:py-20 lg:py-24 ${bgColor} ${className}`}
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}

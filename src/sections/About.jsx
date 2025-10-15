@@ -21,8 +21,8 @@ const About = () => {
   const devopsProjectsCount = projects.filter(project => project.category === "Cloud & DevOps").length;
 
   return (
-    <SectionWrapper id="about" className="py-20">
-      <div className="grid md:grid-cols-5 gap-12 items-start">
+    <SectionWrapper id="about" className="">
+      <div className="grid md:grid-cols-5 gap-8 md:gap-12 items-start">
         <motion.div
           className="md:col-span-3 space-y-8"
           variants={fadeIn('right', 'tween', 0.2, 0.8)}
@@ -37,7 +37,7 @@ const About = () => {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-4xl md:text-5xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-600 to-pink-600">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-600 to-pink-600">
                 About Me
               </h2>
             </motion.div>
@@ -48,9 +48,9 @@ const About = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
                 viewport={{ once: true }}
-                className="relative pl-6 border-l-4 border-primary/30"
+                className="relative pl-4 sm:pl-6 border-l-4 border-primary/30"
               >
-                <p className="text-lg text-muted-foreground leading-relaxed">
+                <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
                   Hello! I'm <span className="font-bold text-foreground">{siteConfig.author}</span>, a{' '}
                   <span className="font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
                     Cloud & DevOps Engineer
@@ -65,7 +65,7 @@ const About = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
                 viewport={{ once: true }}
-                className="bg-gradient-to-br from-primary/5 via-purple-500/5 to-pink-500/5 p-6 rounded-2xl border border-primary/10"
+                className="bg-gradient-to-br from-primary/5 via-purple-500/5 to-pink-500/5 p-4 sm:p-6 rounded-2xl border border-primary/10"
               >
                 <p className="text-muted-foreground leading-relaxed">
                   Skilled in designing and managing{' '}
@@ -86,15 +86,15 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
             viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+            className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
           >
             {highlights.map((item, idx) => (
               <div
                 key={idx}
-                className="flex items-center gap-3 p-4 rounded-xl bg-muted/30 border border-muted hover:border-primary/30 transition-all duration-300 hover:scale-105"
+                className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl bg-muted/30 border border-muted hover:border-primary/30 transition-all duration-300 hover:scale-105"
               >
                 <div className={`${item.color}`}>{item.icon}</div>
-                <span className="text-sm font-medium">{item.text}</span>
+                <span className="text-xs sm:text-sm font-medium">{item.text}</span>
               </div>
             ))}
           </motion.div>

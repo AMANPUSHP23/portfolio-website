@@ -55,7 +55,7 @@ const Hero = () => {
 
 
   return (
-    <SectionWrapper id="hero" className="pt-28 pb-12 min-h-[80vh] flex flex-col items-center justify-center text-center relative overflow-hidden" aria-label="Hero section">
+    <SectionWrapper id="hero" className="pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-12 min-h-[70vh] sm:min-h-[75vh] md:min-h-[80vh] flex flex-col items-center justify-center text-center relative overflow-hidden" aria-label="Hero section">
       {/* Particle Animation Layer */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <HeroParticles />
@@ -64,9 +64,9 @@ const Hero = () => {
       <div className="absolute inset-0 opacity-10 dark:opacity-5 z-10" aria-hidden="true" role="presentation">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="heroGrid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M 30 0 L 0 0 0 30" fill="none" stroke="hsl(var(--foreground))" strokeWidth="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(#heroGrid)" /></svg>
       </div>
-      <div className="relative z-10 max-w-3xl px-4" role="region" aria-label="Hero section">
+      <div className="relative z-10 max-w-3xl px-4 sm:px-6" role="region" aria-label="Hero section">
         <motion.h1
-          className="text-3xl xs:text-4xl sm:text-5xl md:text-7xl font-extrabold mb-6 bg-gradient-to-r from-primary via-purple-600 to-pink-600 bg-clip-text text-transparent min-h-[56px] xs:min-h-[64px] sm:min-h-[80px] md:min-h-[100px] flex items-center justify-center gap-2"
+          className="text-3xl xs:text-4xl sm:text-5xl md:text-7xl font-extrabold mb-4 sm:mb-6 bg-gradient-to-r from-primary via-purple-600 to-pink-600 bg-clip-text text-transparent min-h-[56px] xs:min-h-[64px] sm:min-h-[80px] md:min-h-[100px] flex items-center justify-center gap-2"
           initial={{opacity: 0, y: 40}}
           animate={{opacity: 1, y: 0}}
           transition={{duration:0.7, ease: 'easeOut'}}
@@ -91,7 +91,7 @@ const Hero = () => {
           )}
         </motion.h1>
         <motion.p 
-          className="text-base xs:text-lg sm:text-xl md:text-2xl text-muted-foreground mb-8 xs:mb-10"
+          className="text-base xs:text-lg sm:text-xl md:text-2xl text-muted-foreground mb-6 sm:mb-8 md:mb-10"
           variants={subtitleAnimation}
           initial="hidden"
           animate="show"
@@ -142,7 +142,7 @@ const Hero = () => {
         </motion.div>
       </div>
        <motion.div 
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-6 sm:bottom-10 left-1/2 transform -translate-x-1/2"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: greeting.length * 0.1 + 1.2, duration: 0.5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", repeatDelay: 2 }}
