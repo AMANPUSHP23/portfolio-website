@@ -184,3 +184,24 @@ body, * {
 input, textarea {
   user-select: text;
 }
+
+/* Allow selection/editing inside contentEditable (e.g., text nodes) */
+[contenteditable="true"] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Hide React Flow attribution (white watermark box) */
+.react-flow__attribution {
+  display: none !important;
+}
+
+/* React Flow MiniMap: force dark background and subtle border */
+.react-flow__minimap {
+  background: rgba(17, 24, 39, 0.92) !important; /* gray-900 with opacity */
+  border: 1px solid rgba(148, 163, 184, 0.2) !important; /* slate-400/20 */
+  border-radius: 0.5rem !important; /* rounded */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+}

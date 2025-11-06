@@ -16,11 +16,16 @@ export const siteConfig = {
     { label: "About", href: "#about" },
     { label: "Timeline", href: "#timeline" },
     { label: "Skills", href: "#skills" },
+    { label: "Architecture", href: "#architecture" },
     { label: "Projects", href: "#projects" },
     { label: "Experience", href: "#experience" },
     { label: "Testimonials", href: "#testimonials" },
     { label: "Contact", href: "#contact" },
   ],
   resumeUrl: "/aman__pushp__cv.pdf", 
-  contactEmail: "amanpushp2001@gmail.com"
+  contactEmail: "amanpushp2001@gmail.com",
+  
+  // Hero Section Settings
+  showAvailability: true, // Set to false to hide the availability badge
+  availabilityText: "Available for new opportunities" // Customize the text
 };

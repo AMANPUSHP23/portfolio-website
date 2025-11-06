@@ -10,7 +10,8 @@ import HeroParticles from '@/components/ui/HeroParticles';
 
 const Hero = () => {
   const name = siteConfig.author; 
-  const greeting = `I 'm ${name}.`;
+  // Using explicit apostrophe character
+  const greeting = `I${String.fromCharCode(39)}m ${name}.`;
   const [typedGreeting, setTypedGreeting] = useState('');
 
   useEffect(() => {
@@ -22,10 +23,7 @@ const Hero = () => {
 
       typingInterval = setInterval(() => {
         if (i < greeting.length) {
-          setTypedGreeting((prev) => {
-            if (!prev) return greeting.charAt(i);
-            return prev + greeting.charAt(i);
-          });
+          setTypedGreeting(greeting.substring(0, i + 1));
           i++;
         } else {
           clearInterval(typingInterval);
@@ -72,26 +70,10 @@ const Hero = () => {
           transition={{duration:0.7, ease: 'easeOut'}}
           aria-live="polite"
         >
-          <span className="whitespace-pre">{typedGreeting}</span>
-          {typedGreeting === greeting && (
-            <>
-              <motion.span
-                className="inline-block"
-                role="img"
-                aria-label="Waving Hand Emoji"
-                aria-hidden="true"
-                animate={{ rotate: [0, 20, -10, 20, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                style={{ originX: 0.7, display: 'inline-block' }}
-              >
-                👋
-              </motion.span>
-              <span className="animate-ping visually-hidden" aria-hidden="true">|</span>
-            </>
-          )}
+          <span>{typedGreeting}</span>
         </motion.h1>
         <motion.p 
-          className="text-base xs:text-lg sm:text-xl md:text-2xl text-muted-foreground mb-6 sm:mb-8 md:mb-10"
+          className="text-base xs:text-lg sm:text-xl md:text-2xl text-muted-foreground mb-8 sm:mb-10"
           variants={subtitleAnimation}
           initial="hidden"
           animate="show"
@@ -100,6 +82,23 @@ const Hero = () => {
         >
           Cloud & DevOps Engineer specializing in CI/CD pipelines, automation, and scalable infrastructure.
         </motion.p>
+
+        {/* Availability Badge */}
+        {siteConfig.showAvailability && (
+          <motion.div
+            className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/30 rounded-full text-sm mb-8"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: greeting.length * 0.1 + 2, type: "spring", stiffness: 150 }}
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+            <span className="text-green-400 font-medium">{siteConfig.availabilityText}</span>
+          </motion.div>
+        )}
+
         <motion.div 
           className="flex flex-col sm:flex-row justify-center items-center gap-3 xs:gap-4 w-full max-w-xs xs:max-w-sm sm:max-w-none mx-auto"
           initial="hidden"
@@ -123,19 +122,20 @@ const Hero = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                asChild 
+                onClick={() => {
+                  const link = document.createElement('a');
+                  link.href = siteConfig.resumeUrl;
+                  link.download = 'Aman_Pushp_CV.pdf';
+                  link.target = '_blank';
+                  link.rel = 'noopener noreferrer';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                }}
                 className="group shadow-md hover:shadow-accent/30 transition-shadow duration-300 transform hover:scale-105 w-full"
+                aria-label="Download my resume"
               >
-                <a 
-                  href={siteConfig.resumeUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  download
-                  role="button"
-                  aria-label="Download my resume"
-                >
-                  Download Resume <Download className="ml-2 h-5 w-5 group-hover:animate-bounce" />
-                </a>
+                Download Resume <Download className="ml-2 h-5 w-5 group-hover:animate-bounce" />
               </Button>
             </motion.div>
           )}

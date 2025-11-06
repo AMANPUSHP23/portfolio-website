@@ -38,7 +38,7 @@ const SocialIcons = ({ links, direction = 'vertical', className = '' }) => {
   const itemVariants = {
     hidden: { opacity: 0, y: direction === 'vertical' ? 20 : 0, x: direction === 'horizontal' ? 20 : 0 },
     visible: { opacity: 1, y: 0, x: 0 },
-    hover: { scale: 1.25, color: "hsl(var(--primary))", boxShadow: '0 4px 16px rgba(99,102,241,0.15)' },
+    hover: { scale: 1.25, boxShadow: '0 4px 16px rgba(99,102,241,0.15)' },
     tap: { scale: 0.95 }
   };
 

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import emailjs from 'emailjs-com';
 import SectionWrapper from '@/components/layout/SectionWrapper';
 import { Button } from '@/components/ui/button';
@@ -8,11 +8,14 @@ import { useToast } from '@/components/ui/use-toast';
 import { motion } from 'framer-motion';
 import { Send, Mail, Phone, MapPin } from 'lucide-react';
 import { siteConfig } from '@/config/siteConfig';
+import { celebrateSuccess, confettiCannon } from '@/utils/confetti';
+import { announce } from '@/utils/accessibility';
 
 const Contact = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const submitButtonRef = useRef(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -53,10 +56,21 @@ const Contact = () => {
         },
         'A7MAYDiofVwUI6wkM'
       );
+      
+      // Success feedback
       toast({
         title: "Message Sent!",
         description: "Thanks for reaching out. I'll get back to you soon.",
       });
+      
+      // Confetti celebration
+      celebrateSuccess();
+      setTimeout(() => confettiCannon('left'), 200);
+      setTimeout(() => confettiCannon('right'), 400);
+      
+      // Announce to screen readers
+      announce("Message sent successfully. Thank you for reaching out!", 'assertive');
+      
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
       console.error("EmailJS error:", error);
@@ -95,7 +109,7 @@ const Contact = () => {
             Have a project in mind or just want to say hi? Fill out the form or use the contact details below. I'm looking forward to hearing from you!
           </p>
         </div>
-        <div className="grid md:grid-cols-2 gap-12 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 w-full">
           {/* Contact Info + Socials */}
           <motion.div
             className="flex flex-col gap-8 justify-center"
@@ -149,6 +163,9 @@ const Contact = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             variants={{ visible: { transition: { staggerChildren: 0.1 }}}}
+            role="form"
+            aria-label="Contact form"
+            noValidate
           >
             <motion.div variants={formItemVariants} custom={0}>
               <label htmlFor="name" className="block text-sm font-medium text-foreground mb-1">Full Name</label>
@@ -156,7 +173,7 @@ const Contact = () => {
             </motion.div>
             <motion.div variants={formItemVariants} custom={1}>
               <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">Email Address</label>
-              <Input type="email" name="email" id="email" value={formData.email} onChange={handleChange} placeholder="aman.pushp@example.com" required aria-label="Email Address" autoComplete="email" className="w-full mb-4" />
+              <Input type="email" name="email" id="email" value={formData.email} onChange={handleChange} placeholder="Amanpushp@example.com" required aria-label="Email Address" autoComplete="email" className="w-full mb-4" />
             </motion.div>
             <motion.div variants={formItemVariants} custom={2}>
               <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-1">Subject</label>
@@ -167,9 +184,15 @@ const Contact = () => {
               <Textarea name="message" id="message" rows={5} value={formData.message} onChange={handleChange} placeholder="Your message here..." required aria-label="Message" autoComplete="off" className="w-full mb-4" />
             </motion.div>
             <motion.div variants={formItemVariants} custom={4}>
-              <Button type="submit" disabled={isSubmitting} className="w-full mt-2 group shadow-lg hover:shadow-primary/30 transition-shadow duration-300 transform hover:scale-105">
+              <Button 
+                ref={submitButtonRef}
+                type="submit" 
+                disabled={isSubmitting} 
+                className="w-full mt-2 group shadow-lg hover:shadow-primary/30 transition-shadow duration-300 transform hover:scale-105"
+                aria-label={isSubmitting ? 'Sending message...' : 'Send message'}
+              >
                 {isSubmitting ? 'Sending...' : 'Send Message'}
-                {!isSubmitting && <Send className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />}
+                {!isSubmitting && <Send className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />}
               </Button>
             </motion.div>
           </motion.form>

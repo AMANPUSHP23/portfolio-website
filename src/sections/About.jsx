@@ -86,7 +86,7 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
             viewport={{ once: true }}
-            className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
+            className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
           >
             {highlights.map((item, idx) => (
               <div
@@ -200,26 +200,41 @@ const About = () => {
 
                 {/* Quick Links */}
                 <div className="space-y-3">
-                  <a
-                    href={siteConfig.resumeUrl}
-                    download
-                    className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors duration-200"
+                  <button
+                    onClick={() => {
+                      const link = document.createElement('a');
+                      link.href = siteConfig.resumeUrl;
+                      link.download = 'Aman_Pushp_CV.pdf';
+                      link.target = '_blank';
+                      link.rel = 'noopener noreferrer';
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                    }}
+                    className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors duration-200 cursor-pointer"
+                    aria-label="Download resume"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                     Download Resume
-                  </a>
+                  </button>
                   
-                  <a
-                    href="#contact"
-                    className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-border bg-background/50 font-medium hover:bg-muted/50 transition-colors duration-200"
+                  <button
+                    onClick={() => {
+                      const element = document.getElementById('contact');
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }
+                    }}
+                    className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-border bg-background/50 font-medium hover:bg-muted/50 transition-colors duration-200 cursor-pointer"
+                    aria-label="Scroll to contact section"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                     Get in Touch
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>

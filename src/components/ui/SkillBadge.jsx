@@ -11,7 +11,7 @@ const SkillBadge = ({ skill, index, className = '' }) => {
       initial={{ opacity: 0, scale: 0.8, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
-      whileHover={{ y: -5, boxShadow: "0px 10px 20px hsla(var(--primary), 0.2)" }}
+      whileHover={{ y: -5, boxShadow: "0px 10px 20px rgba(99, 102, 241, 0.2)" }}
       role="article"
       tabIndex={0}
     >

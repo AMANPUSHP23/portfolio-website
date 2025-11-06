@@ -4,6 +4,7 @@ import Hero from '@/sections/Hero';
 import About from '@/sections/About';
 import Timeline from '@/sections/Timeline';
 import Skills from '@/sections/Skills';
+import Architecture from '@/sections/Architecture';
 import Projects from '@/sections/Projects';
 import Experience from '@/sections/Experience';
 import Testimonials from '@/sections/Testimonials';
@@ -24,6 +25,7 @@ const HomePage = () => {
       <About />
       <Timeline />
       <Skills />
+      <Architecture />
       <Projects />
       <Experience />
       <Testimonials />
