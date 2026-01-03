@@ -22,7 +22,8 @@ export const siteConfig = {
     { label: "Testimonials", href: "#testimonials" },
     { label: "Contact", href: "#contact" },
   ],
-  resumeUrl: "/aman__pushp__cv.pdf", 
+  // Update to match the actual file present in `public/` (case-sensitive on many hosts)
+  resumeUrl: "/Aman_Pushp_CV.pdf",
   contactEmail: "amanpushp2001@gmail.com",
   
   // Hero Section Settings
