@@ -23,9 +23,9 @@ output "eks_cluster_version" {
   value       = aws_eks_cluster.main.version
 }
 
-output "eks_cluster_security_group_id" {
-  description = "EKS cluster security group ID"
-  value       = aws_eks_cluster.main.vpc_config[0].security_group_ids[0]
+output "eks_cluster_security_group_ids" {
+  description = "EKS cluster security group IDs"
+  value       = aws_eks_cluster.main.vpc_config[0].security_group_ids
 }
 
 output "eks_node_group_id" {
@@ -34,13 +34,13 @@ output "eks_node_group_id" {
 }
 
 output "alb_dns_name" {
-  description = "ALB DNS name"
-  value       = aws_lb.main.dns_name
+  description = "ALB DNS name (empty if ALB disabled)"
+  value       = try(aws_lb.main[0].dns_name, "ALB disabled - using NodePort")
 }
 
 output "alb_arn" {
-  description = "ALB ARN"
-  value       = aws_lb.main.arn
+  description = "ALB ARN (empty if ALB disabled)"
+  value       = try(aws_lb.main[0].arn, "ALB disabled - using NodePort")
 }
 
 output "vpc_id" {

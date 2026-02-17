@@ -1,5 +1,7 @@
-# ALB
+# ALB (Optional - disabled for free tier to save $16/month)
 resource "aws_lb" "main" {
+  count = 0  # Set to 1 to enable, 0 to disable (free tier default)
+  
   name_prefix        = substr(replace("${var.project_name}-alb", "-", ""), 0, 6)
   internal           = false
   load_balancer_type = "application"
@@ -15,8 +17,10 @@ resource "aws_lb" "main" {
   }
 }
 
-# ALB Target Group
+# ALB Target Group (Optional - disabled for free tier)
 resource "aws_lb_target_group" "portfolio" {
+  count = 0  # Must match ALB count
+  
   name_prefix = substr(replace("${var.project_name}-tg", "-", ""), 0, 6)
   port        = 80
   protocol    = "HTTP"
@@ -36,15 +40,17 @@ resource "aws_lb_target_group" "portfolio" {
   }
 }
 
-# ALB Listener
+# ALB Listener (Optional - disabled for free tier)
 resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.main.arn
+  count = 0  # Must match ALB count
+  
+  load_balancer_arn = aws_lb.main[0].arn
   port              = "80"
   protocol          = "HTTP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.portfolio.arn
+    target_group_arn = aws_lb_target_group.portfolio[0].arn
   }
 }
 
