@@ -25,7 +25,7 @@ output "eks_cluster_version" {
 
 output "eks_cluster_security_group_ids" {
   description = "EKS cluster security group IDs"
-  value       = aws_eks_cluster.main.vpc_config[0].security_group_ids
+  value       = tolist(aws_eks_cluster.main.vpc_config[0].security_group_ids)
 }
 
 output "eks_node_group_id" {
