@@ -14,6 +14,10 @@ resource "aws_iam_role" "eks_cluster" {
       }
     ]
   })
+
+  lifecycle {
+    ignore_changes = [tags_all]
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
@@ -78,6 +82,10 @@ resource "aws_iam_role" "eks_nodes" {
       }
     ]
   })
+
+  lifecycle {
+    ignore_changes = [tags_all]
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "eks_worker_node_policy" {
