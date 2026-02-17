@@ -4,7 +4,7 @@
 
 environment = "development"  # Lower cost tier
 aws_region  = "us-east-1"    # Free tier region
-cluster_version = "1.27"
+cluster_version = "1.30"     # Updated from 1.27 (unsupported)
 
 # COST OPTIMIZED: Single node cluster
 node_desired_size = 1        # Was: 3 - Saves ~$14/month
