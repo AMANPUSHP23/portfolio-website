@@ -169,4 +169,8 @@ resource "aws_launch_template" "custom" {
       Name = "${var.project_name}-node"
     }
   }
+
+  lifecycle {
+    ignore_changes = [tags_all]
+  }
 }
