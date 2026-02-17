@@ -80,6 +80,10 @@ resource "aws_s3_bucket" "logs" {
   tags = {
     Name = "${var.project_name}-logs"
   }
+
+  lifecycle {
+    ignore_changes = [tags_all]
+  }
 }
 
 resource "aws_s3_bucket_versioning" "logs" {
