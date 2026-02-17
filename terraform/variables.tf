@@ -55,8 +55,8 @@ variable "node_desired_size" {
   type        = number
   default     = 3
   validation {
-    condition     = var.node_desired_size >= 2 && var.node_desired_size <= 10
-    error_message = "Node size must be between 2 and 10."
+    condition     = var.node_desired_size >= 1 && var.node_desired_size <= 10
+    error_message = "Node size must be between 1 and 10."
   }
 }
 
