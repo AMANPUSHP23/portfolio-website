@@ -1,0 +1,21 @@
+apiVersion: v2
+name: portfolio
+description: A Helm chart for deploying the portfolio website on Kubernetes
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+
+maintainers:
+  - name: DevOps Team
+    email: devops@example.com
+
+keywords:
+  - portfolio
+  - website
+  - kubernetes
+
+home: https://github.com/AMANPUSHP23/portfolio-website
+sources:
+  - https://github.com/AMANPUSHP23/portfolio-website
+
+dependencies: []

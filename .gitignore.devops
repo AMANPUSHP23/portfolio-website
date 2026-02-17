@@ -1,0 +1,70 @@
+# DevOps and Infrastructure
+
+# Terraform
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+**/*.tfvars
+*.tfvars
+*.tfvars.json
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.tfvars
+.tfvars.json
+
+# Terraform lock file
+.terraform.lock.hcl
+
+# Kubernetes
+kubeconfig
+kubeconfig.yaml
+.kube/
+*.kubeconfig
+
+# Helm
+charts/
+Chart.lock
+**/*.tgz
+
+# Docker
+docker-compose.override.yml
+.docker/
+
+# AWS
+.aws/
+*.pem
+*.pub
+aws-credentials
+
+# Monitoring
+prometheus-data/
+grafana-data/
+loki-data/
+
+# CI/CD
+.github/secrets/
+
+# Logs
+*.log
+logs/
+
+# Node
+node_modules/
+dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Artifacts
+output.json
+tfplan
+terraform.tfstate.*

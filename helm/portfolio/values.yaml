@@ -1,0 +1,149 @@
+# Free Tier Optimized values
+replicaCount: 1
+
+image:
+  repository: ghcr.io/amanpushp23/portfolio-website
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "3000"
+  prometheus.io/path: "/metrics"
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  fsGroup: 1000
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  capabilities:
+    drop:
+      - ALL
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 3000
+  annotations: {}
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+  hosts:
+    - host: portfolio.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: portfolio-tls
+      hosts:
+        - portfolio.example.com
+
+resources:
+  limits:
+    cpu: 250m          # Reduced from 500m
+    memory: 256Mi      # Reduced from 512Mi
+  requests:
+    cpu: 50m           # Reduced from 100m
+    memory: 64Mi       # Reduced from 128Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 1         # Was: 2
+  maxReplicas: 2         # Was: 10 - Reduced for cost
+  targetCPUUtilizationPercentage: 80        # Higher threshold
+  targetMemoryUtilizationPercentage: 85     # Higher threshold
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - portfolio
+          topologyKey: kubernetes.io/hostname
+
+# Health checks
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 2
+
+# Environment variables
+env:
+  - name: NODE_ENV
+    value: "production"
+  - name: LOG_LEVEL
+    value: "info"
+
+# Config maps
+configMap:
+  enabled: true
+  data: {}
+
+# Secrets
+secrets:
+  enabled: false
+  data: {}
+
+# Persistence
+persistence:
+  enabled: false
+  storageClassName: "gp2"
+  accessMode: ReadWriteOnce
+  size: 10Gi
+
+# Network policies
+networkPolicy:
+  enabled: true
+  policyTypes:
+    - Ingress
+    - Egress
+
+# Pod Disruption Budget
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 1
+
+# Service Monitor for Prometheus
+serviceMonitor:
+  enabled: false
+  interval: 30s
+  scrapeTimeout: 10s

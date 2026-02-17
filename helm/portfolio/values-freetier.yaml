@@ -1,0 +1,184 @@
+# Helm Values - Free Tier Optimized
+# Budget friendly configuration for AWS free tier account
+# Instance Type: m7i-flex.large
+# Cost: ~$10-15/month
+
+# ========================================
+# REPLICAS & SCALING
+# ========================================
+
+# Single replica to start (can use more if m7i-flex.large has capacity)
+replicaCount: 1
+
+image:
+  repository: ghcr.io/amanpushp23/portfolio-website
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations:
+  # Disable monitoring annotations to save resources
+  # prometheus.io/scrape: "false"
+  monitoring: "disabled"
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  fsGroup: 1000
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  capabilities:
+    drop:
+      - ALL
+
+# ========================================
+# SERVICE (No Load Balancer - Cost Saving)
+# ========================================
+
+service:
+  type: NodePort  # Was: ClusterIP - NodePort costs nothing
+  port: 80
+  targetPort: 3000
+  nodePort: 30000  # Access via NodeIP:30000
+  annotations: {}
+
+# ========================================
+# INGRESS (DISABLED - ALB costs $16/month)
+# ========================================
+
+ingress:
+  enabled: false  # DISABLE to save $16/month (ALB cost)
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+  hosts:
+    - host: portfolio.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: portfolio-tls
+      hosts:
+        - portfolio.example.com
+
+# ========================================
+# RESOURCE LIMITS (REDUCED for free tier)
+# ========================================
+
+resources:
+  limits:
+    cpu: 250m      # Was: 500m - m7i-flex.large can handle more but reduce for cost
+    memory: 256Mi  # Was: 512Mi
+  requests:
+    cpu: 50m       # Was: 100m
+    memory: 64Mi   # Was: 128Mi
+
+# ========================================
+# AUTO-SCALING (Limited)
+# ========================================
+
+autoscaling:
+  enabled: true
+  minReplicas: 1   # Was: 2 - Start with 1
+  maxReplicas: 2   # Was: 10 - Max 2 replicas
+  targetCPUUtilizationPercentage: 80      # Higher threshold = fewer replicas
+  targetMemoryUtilizationPercentage: 85   # Higher threshold = fewer replicas
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}  # Disable pod anti-affinity (not needed with 1 node)
+
+# ========================================
+# HEALTH CHECKS
+# ========================================
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 2
+
+# ========================================
+# ENVIRONMENT
+# ========================================
+
+env:
+  - name: NODE_ENV
+    value: "production"
+  - name: LOG_LEVEL
+    value: "info"
+
+# ========================================
+# CONFIG & SECRETS
+# ========================================
+
+configMap:
+  enabled: true
+  data: {}
+
+secrets:
+  enabled: false
+  data: {}
+
+# ========================================
+# PERSISTENCE (DISABLED for free tier)
+# ========================================
+
+persistence:
+  enabled: false
+  storageClassName: "gp2"
+  accessMode: ReadWriteOnce
+  size: 10Gi
+
+# ========================================
+# NETWORK POLICIES (SIMPLIFIED)
+# ========================================
+
+networkPolicy:
+  enabled: false  # DISABLE - Reduce overhead
+  policyTypes:
+    - Ingress
+    - Egress
+
+# ========================================
+# POD DISRUPTION BUDGET
+# ========================================
+
+podDisruptionBudget:
+  enabled: false  # DISABLE - Only 1 replica
+  minAvailable: 1
+
+# ========================================
+# MONITORING (DISABLED - Use CloudWatch)
+# ========================================
+
+serviceMonitor:
+  enabled: false  # DISABLE Prometheus metrics
+  interval: 30s
+  scrapeTimeout: 10s

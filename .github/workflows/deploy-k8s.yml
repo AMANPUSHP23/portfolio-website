@@ -1,0 +1,117 @@
+name: Deploy to Kubernetes
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.event.inputs.environment || 'staging' }}
+    permissions:
+      contents: read
+      packages: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Update kubeconfig
+        run: |
+          aws eks update-kubeconfig \
+            --region ${{ secrets.AWS_REGION }} \
+            --name ${{ secrets.EKS_CLUSTER_NAME }}
+
+      - name: Set image tag
+        id: image
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            TAG=${{ github.ref_name }}
+          else
+            TAG=${{ github.sha }}
+          fi
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+          echo "image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${TAG}" >> $GITHUB_OUTPUT
+
+      - name: Deploy with Helm
+        run: |
+          helm repo add portfolio https://your-helm-repo
+          helm repo update
+          
+          helm upgrade --install portfolio portfolio/portfolio-chart \
+            --namespace portfolio \
+            --create-namespace \
+            --values helm/values.yaml \
+            --set image.repository=${{ steps.image.outputs.image }} \
+            --wait \
+            --timeout 5m
+
+      - name: Verify deployment
+        run: |
+          kubectl rollout status deployment/portfolio-app \
+            -n portfolio \
+            --timeout=5m
+
+      - name: Get service endpoints
+        run: |
+          kubectl get service portfolio-service -n portfolio -o wide
+
+      - name: Notify Slack on success
+        if: success()
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+          payload: |
+            {
+              "text": "✅ Portfolio deployed successfully",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Portfolio Deployment Status*\n*Image:* ${{ steps.image.outputs.image }}\n*Environment:* ${{ github.event.inputs.environment || 'staging' }}\n*Status:* Success ✅"
+                  }
+                }
+              ]
+            }
+
+      - name: Notify Slack on failure
+        if: failure()
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+          payload: |
+            {
+              "text": "❌ Portfolio deployment failed",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Portfolio Deployment Status*\n*Image:* ${{ steps.image.outputs.image }}\n*Environment:* ${{ github.event.inputs.environment || 'staging' }}\n*Status:* Failed ❌\n*View logs:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                  }
+                }
+              ]
+            }

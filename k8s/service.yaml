@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: portfolio-service
+  namespace: portfolio
+  labels:
+    app: portfolio
+spec:
+  type: ClusterIP
+  selector:
+    app: portfolio
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 3000
+  sessionAffinity: None
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portfolio-service-headless
+  namespace: portfolio
+  labels:
+    app: portfolio
+spec:
+  type: ClusterIP
+  clusterIP: None
+  selector:
+    app: portfolio
+  ports:
+  - name: http
+    protocol: TCP
+    port: 3000
+    targetPort: 3000
