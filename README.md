@@ -25,14 +25,14 @@
 ## 👨‍💻 **About Me**
 
 ```yaml
-Cloud & DevOps Engineer | MERN Stack Developer | MCA Student
+Cloud & DevOps Engineer | MCA Student
 
 🎓 Education:
   - Master of Computer Application (MCA) @ Silicon University (2023-2025)
   - Bachelor of Computer Application (BCA) @ Vinoba Bhave University (2018-2021)
 
 💼 Experience:
-  - MERN Stack Developer Intern @ Codebeat, Bhubaneswar (Jun 2024 - Dec 2024)
+  - Linux Engineer at Netzary Infodynamics (From 11 june - Present)
 
 🌍 Location: Bangalore, Karnataka, India
 
