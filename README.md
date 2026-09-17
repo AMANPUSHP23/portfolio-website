@@ -278,7 +278,7 @@ Advanced job-hunting platform with user authentication, real-time listings, and 
 <td width="50%">
 
 #### 🌐 Personal Portfolio
-[![Live](https://img.shields.io/badge/Live-Visit_Site-success?style=for-the-badge&logo=vercel)](https://amanpushp23.netlify.app/)
+[![Live](https://img.shields.io/badge/Live-Visit_Site-success?style=for-the-badge&logo=vercel)](https://aman-pushp-portfolio.netlify.app/)
 [![GitHub](https://img.shields.io/badge/GitHub-View_Code-black?style=for-the-badge&logo=github)](https://github.com/AMANPUSHP23/portfolio-amanpushp.git)
 
 Modern portfolio with smooth animations and responsive design.
